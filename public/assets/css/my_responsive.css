@@ -1,0 +1,40 @@
+@media (min-width: 320px) {
+    .cv-color-item {
+        width: 35px;
+        height: 35px;
+        margin: 0 2%;
+    }
+
+    /*.color-picker-icon img {*/
+    /*    width: 50px;*/
+    /*}*/
+
+    .cv-color-item.sel {
+        background-size: 18px;
+    }
+
+    #grid-size-pick-step #step-2 p {
+        font-size: 0.8rem;
+
+    }
+}
+
+@media (max-width: 996px) {
+    #payment-submit {
+        width: 100%;
+    }
+    #signupform>div {
+        height: auto;
+        margin-bottom: 0;
+    }
+    .generated-image-list {
+        grid-template-columns: auto auto auto auto !important;
+    }
+}
+
+@media (max-width: 540px) {
+    .sweet-alert {
+        width: auto;
+        margin-left: 0;
+    }
+}

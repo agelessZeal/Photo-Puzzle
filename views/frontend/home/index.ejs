@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" href="/assets/vendor/sweetalert/sweetalert.css" />
+<%- include ../../layouts/header.ejs %>
+
+<body>
+
+<%- include ../../layouts/menubar.ejs %>
+
+<%- include ../../component/page-loading.ejs %>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <br>
+        <div class="col-lg-12  text-center">
+            <% if(error && error.length>0) { %>
+                <div class="alert alert-danger home-img-uploading-msg">
+                    <%= error %>
+                </div>
+            <% } else if (success && success.length>0) { %>
+                <div class="alert alert-success home-img-uploading-msg">
+                    <%= success %>
+                </div>
+            <%  } %>
+        </div>
+    </div>
+    <div class="row">
+        <br>
+        <div class="col-lg-12 text-center step-page-title sel" id="step-1-title">
+            <p>Create your own</p>
+            <h1><i>Image Reveal Quiz for Instagram Storys</i></h1>
+        </div>
+        <div class="col-lg-12 text-center step-page-title" id="step-2-title">
+            <p class="font-weight-bold follow-steps">Almost done!</p>
+            <p class="follow-steps-description">Follow below steps to generate your images</p>
+        </div>
+        <div class="col-lg-12 text-center step-page-title" id="step-3-title">
+            <p class="font-weight-bold follow-steps">Almost DONE!</p>
+            <p class="follow-steps-description">Follow below steps to generate your images</p>
+        </div>
+    </div>
+    <br>
+    <form action="/generate-quiz-images" enctype="multipart/form-data" method="post" id="createImgForm">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="upload_container">
+                    <img class="placeholder-img" src="/assets/img/image_placeholder.png">
+                    <br>
+                    <p >Drag and drop your image here or upload it from <a href="#">your computer</a></p>
+                    <p class="upload-text">Image must be 1080 x 1920</p>
+                    <input type="file" id="file" name="file" accept="image/*">
+                </div>
+            </div>
+        </div>
+        <div class="offset-lg-2 col-lg-8" id="uploading_step-wrapper">
+            <div class="quiz-steps" id="src-image-pick-step">
+                <a class="quiz-step-btn font-weight-bold">
+                    <div class="quiz-step-img">
+                        <img src="/assets/img/step1.svg" alt="step1">
+                    </div>
+                    <div class="quiz-step-title">
+                        Image upload
+                        <p>instagaram_img.jpg</p>
+                    </div>
+                    <div class="quiz-step-link" onclick="onChangeImage()">
+                        Change
+                    </div>
+                </a>
+            </div>
+            <hr>
+            <div class="quiz-steps" id="grid-size-pick-step">
+                <a href="#step-2" class="quiz-step-btn font-weight-bold" data-toggle="collapse">
+                    <div class="quiz-step-img">
+                        <img src="/assets/img/step2.svg" alt="step2">
+                    </div>
+                    <div class="quiz-step-title">
+                        Choose grid size
+                    </div>
+                    <div class="quiz-step-link">
+                        Change
+                    </div>
+                </a>
+                <div id="step-2" class="collapse text-center">
+                    <div>
+                        <div class="grid-size-item" data-size="size28">
+                            <img src="/assets/img/tile28.svg" alt="step2">
+                            <h6>28 Tiles</h6>
+                        </div>
+                        <div class="grid-size-item <%= (premium_st)?'':'premium-grid'; %>" data-size="size45">
+                            <img src="/assets/img/tile46.svg" alt="tile45">
+                            <h6>45 Tiles</h6>
+                        </div>
+                        <div class="grid-size-item" data-size="size66">
+                            <img src="/assets/img/tile66.svg" alt="tile66">
+                            <h6>66 Tiles</h6>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p>PREMIUM ONLY</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="quiz-steps disable-step" id="cover-color-pick-step">
+                <a href="#step-3" class="quiz-step-btn font-weight-bold" data-toggle="collapse">
+                    <div class="quiz-step-img">
+                        <img src="/assets/img/step3.svg">
+                    </div>
+                    <div class="quiz-step-title">
+                        Cover color
+                        <p>
+                            <span id="cover-color-mark"></span>
+                            <span id="cover-color-value"></span>
+                        </p>
+                    </div>
+                    <div class="quiz-step-link">
+                        Change
+                    </div>
+                </a>
+                <div id="step-3" class="collapse">
+                    <div>
+                        <div class="color-picker-icon">
+                            <img src="/assets/img/color_picker.svg" alt="color-picker">
+                            <input class="jscolor custom-js-picker" value="50e8a2" onchange="onUpdateCoverColor(this.jscolor)">
+                        </div>
+                        <div class="color-vertical-line"></div>
+                        <div class="cv-color-item cover-color1" data-color="#67ad9d"></div>
+                        <div class="cv-color-item cover-color2" data-color="#6782ad"></div>
+                        <div class="cv-color-item cover-color3" data-color="#adad67"></div>
+                        <div class="cv-color-item cover-color4" data-color="#ad67aa"></div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="quiz-steps disable-step" id="custom-cover-color-pick">
+                <a class="quiz-step-btn font-weight-bold custom-cover-image">
+                    <div class="quiz-step-img">
+                        <img src="/assets/img/step1.svg">
+                    </div>
+                    <div class="quiz-step-title">
+                        <p>PREMIUM ONLY</p>
+                        Custom Cover Image
+                        <p id="cover-image-name"></p>
+                    </div>
+                    <div class="quiz-step-link">
+                        Change
+                    </div>
+                </a>
+            </div>
+            <hr>
+            <div class="quiz-steps text-center">
+                <input type="hidden" name="imageType" value="quiz">
+                <input type="hidden" name="gridSize">
+                <input type="hidden" name="coverColor">
+                <button class="btn quiz-action-btn" id="create-quiz-img-btn" disabled>CREATE IMAGES</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="row" id="see-live-example">
+        <div class="col-lg-12 text-center">
+            <p>See live examples</p>
+            <div id="stories"></div>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+
+<%- include ../../layouts/footer.ejs %>
+<script src="/assets/vendor/sweetalert/sweetalert.min.js"></script>
+
+<script>
+    var isPremium = '<%= premium_st %>';
+    isPremium = isPremium == 'true';
+</script>
+
+<!-- Instagram Story Demo -->
+<script src="/assets/js/zuck.js"></script>
+<script src="/assets/js/demo.js"></script>
+<script src="/assets/js/home.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<hr>
+<footer>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <a href="https://facebook.com/" class="st-social-link">
+                    <img src="/assets/img/facebook.svg">
+                </a>
+                <a href="https://instagram.com/" class="st-social-link">
+                    <img src="/assets/img/instagram.svg">
+                </a>
+                <a href="https://twitter.com/" class="st-social-link">
+                    <img src="/assets/img/twitter.svg">
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="col-lg-12 text-center">
+            <p>(c) 2019 storyquiz</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+<script>
+    setTimeout(function () {
+        hideNotifications();
+    }, 2500);
+    var hideNotifications = function () {
+        $(".alert").slideUp(600, function () {
+            $(this).remove();
+        })
+    }
+</script>

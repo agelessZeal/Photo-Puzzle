@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="29.014" height="29.014" viewBox="0 0 29.014 29.014">
+  <g id="Medium" transform="translate(0 0)">
+    <g id="Rechteck_7" data-name="Rechteck 7" fill="#fff" stroke="#262626" stroke-width="1">
+      <rect width="29.014" height="29.014" rx="3" stroke="none"/>
+      <rect x="0.5" y="0.5" width="28.014" height="28.014" rx="2.5" fill="none"/>
+    </g>
+    <line id="Linie_11" data-name="Linie 11" y2="28.434" transform="translate(19.439 0.29)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_12" data-name="Linie 12" y2="28.434" transform="translate(9.575 0.29)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_13" data-name="Linie 13" y2="28.434" transform="translate(0.58 9.285) rotate(-90)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_14" data-name="Linie 14" y2="28.434" transform="translate(0.58 19.149) rotate(-90)" fill="none" stroke="#262626" stroke-width="1"/>
+  </g>
+</svg>

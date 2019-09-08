@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ../../layouts/header.ejs %>
+
+<body>
+
+<%- include ../../layouts/menubar.ejs %>
+
+<%- include ../../component/page-loading.ejs %>
+
+<!-- Page Content -->
+<div class="container" id="main-content">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <br>
+            <p>Get all the</p>
+            <h1><i>PREMIUM FEATURES</i></h1>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-lg-2 col-lg-8">
+            <% if(error && error.length > 0){ %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } else if(success && success.length > 0 ){ %>
+                <div class="alert alert-success">
+                    <%= success %>
+                </div>
+            <% } %>
+            <div class="payment-mode-select">
+                <span class="plan-sel-item <%= (cur_plan=='Monthly')?'sel':'' %>"
+                      id="plan-monthly-switch"
+                      data-plan="Monthly">Monthly
+                </span>
+                <label class="switch">
+                    <input type="checkbox" class="primary" <%= (cur_plan=='Annually')?'checked':'' %>>
+                    <span class="slider round plan-switch-box"></span>
+                </label>
+                <span class="plan-sel-item <%= (cur_plan=='Annually')?'sel':'' %>"
+                      id="plan-annually-switch"
+                      data-plan="Annually">Annually
+                </span>
+            </div>
+            <div class="payment-mode-details text-center">
+                <div class="annually-price-plan <%= (cur_plan=='Annually')?'sel':'' %>">
+                    <span class="payment-discount-msg">33% Discount</span>
+                    <h5 class="font-weight-bold payment-period">Annually</h5>
+                    <p><span>$</span><span>2</span> <span>/ monthly</span></p>
+                </div>
+                <div class="monthly-price-plan <%= (cur_plan=='Monthly')?'sel':'' %>">
+                    <h5 class="font-weight-bold payment-period">Monthly</h5>
+                    <p><span>$</span><span>3</span> <span>/ monthly</span></p>
+                </div>
+                <div>
+                    <p>All premium features</p>
+                    <p>Custom cover image</p>
+                    <p>Additional gird size</p>
+                </div>
+                <form action="/user/update/plan" method="post" id="planForm">
+                    <% if(session.login) { %>
+                        <input type="radio" hidden name="plan"
+                               id="period_Monthly"
+                                <%= (session.user.stripe.plan=='Monthly')?'checked':'' %>
+                               value="Monthly">
+                        <input type="radio" hidden name="plan"
+                               id="period_Annually"
+                                <%= (session.user.stripe.plan=='Annually')?'checked':'' %>
+                               value="Annually">
+                    <% } %>
+                    <button class="btn quiz-action-btn" id="select-price-btn">SELECT THIS PLAN</button>
+                </form>
+                <p class="billed-annually-msg <%= (cur_plan=='Annually')?'sel':'' %>">($24 billed annually)</p>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+<%- include ../../layouts/footer.ejs %>
+<script src="/assets/js/home.js"></script>
+
+<script>
+    var curPlan = '<%= cur_plan %>';
+    var isLogin = '<%= session.login %>';
+    isLogin = isLogin == 'true';
+    function showPriceInfo(plan) {
+        if(plan == 'Monthly') {
+            $('#plan-monthly-switch').addClass('sel');
+            $('.monthly-price-plan').addClass('sel');
+
+            $('.annually-price-plan').removeClass('sel');
+            $('.billed-annually-msg').removeClass('sel');
+
+        } else {
+            $('#plan-annually-switch').addClass('sel');
+            $('.annually-price-plan').addClass('sel');
+            $('.monthly-price-plan').removeClass('sel');
+            $('.billed-annually-msg').addClass('sel');
+        }
+
+        curPlan = plan;
+        $('#period_' + plan).prop('checked', true);
+    }
+
+    $('.plan-switch-box').click(function () {
+        $('.plan-sel-item').removeClass('sel');
+        if($('input[type="checkbox"]')[0].checked) {
+            showPriceInfo('Monthly');
+        } else {
+            showPriceInfo('Annually');
+        }
+    })
+    $('.plan-sel-item').click(function () {
+        $('.plan-sel-item').removeClass('sel');
+        $(this).addClass('sel');
+        if($(this).data('plan') == 'Monthly') {
+            $('input[type="checkbox"]')[0].checked = false;
+            showPriceInfo('Monthly');
+        } else {
+            $('input[type="checkbox"]')[0].checked = true;
+            showPriceInfo('Annually');
+        }
+    });
+
+    $('#select-price-btn').click(function (e) {
+        e.preventDefault();
+        if(isLogin) {
+            $('#planForm').submit();
+        } else {
+            location.href = '/auth/register?plan=' + curPlan;
+        }
+    })
+
+</script>
+
+</body>
+</html>

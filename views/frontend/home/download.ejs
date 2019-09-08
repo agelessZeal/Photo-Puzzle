@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ../../layouts/header.ejs %>
+
+<body>
+
+<%- include ../../layouts/menubar.ejs %>
+
+<%- include ../../component/page-loading.ejs %>
+
+<!-- Page Content -->
+<div class="container" id="main-content">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <br>
+            <p class="font-weight-bold follow-steps">Almost done!</p>
+            <p class="follow-steps-description">YOUR IMAGES ARE READY TO DOWNLOAD</p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-lg-2 col-lg-8">
+            <div class="generated-image-list grid-container" style="grid-template-columns: <%= auto_str %>;">
+                <% for(var i = 0; i<img_list.length; i++) { %>
+                    <div class="grid-item">
+                        <img src="<%= img_list[i] %>" alt="<%= i %>">
+                        <div class="grid-item-label">
+                            <p><%= i %></p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <% if(img_list.length>0) {  %>
+                <div class="quiz-steps text-center">
+                    <button type="button" class="btn quiz-action-btn" onclick="onDownloadQuizImages()">DOWNLOAD ALL IMAGES</button>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <br>
+</div>
+
+<%- include ../../layouts/footer.ejs %>
+<script src="/assets/js/home.js"></script>
+
+</body>
+</html>

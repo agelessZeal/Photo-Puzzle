@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" href="/assets/vendor/sweetalert/sweetalert.css" />
+
+<%- include ../../layouts/header.ejs %>
+
+<body>
+
+<%- include ../../layouts/menubar.ejs %>
+
+<!-- Page Content -->
+<div class="container" id="main-content">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <br>
+            <p>Get all the</p>
+            <h1><i>PREMIUM FEATURES</i></h1>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-lg-2 col-lg-8">
+            <h5 class="premium-setup-title">Account details</h5>
+            <div class="personal-info-setup">
+                <form action="/user/update/details" method="post" autocomplete="off">
+                    <% if(acc_error && acc_error.length>0){ %>
+                        <div class="alert alert-danger">
+                            <%= acc_error %>
+                        </div>
+                    <% } else if(acc_success && acc_success.length>0){ %>
+                        <div class="alert alert-success">
+                            <%= acc_success %>
+                        </div>
+                    <% } %>
+                    <div class="row" id="account-detail-form">
+                        <div class="col-lg-6">
+                            <input type="email" class="form form-control" value="<%= session.user.email %>" name="email"
+                                   disabled placeholder="E-Mail Address">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input type="text" class="form form-control" value="<%= session.user.fname %>" name="fname" placeholder="First name">
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" class="form form-control" value="<%= session.user.sname %>" name="sname" placeholder="Last name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input type="password" class="form form-control" name="password" placeholder="Password">
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="password" class="form form-control" name="confirm_password"
+                                   placeholder="Retype password">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-lg-3 col-lg-6">
+                            <button class="btn quiz-action-btn no-bg-btn">UPDATE ACCOUNT DETAILS</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <h5 class="premium-setup-title">Address</h5>
+            <div class="personal-info-setup">
+                <form action="/user/update/address" method="post">
+                    <% if(addr_error && addr_error.length>0){ %>
+                        <div class="alert alert-danger">
+                            <%= addr_error %>
+                        </div>
+                    <% } else if(addr_success && addr_success.length>0){ %>
+                        <div class="alert alert-success">
+                            <%= addr_success %>
+                        </div>
+                    <% } %>
+                    <div class="row" id="address-detail-form">
+                        <div class="col-lg-6">
+                            <input type="text" class="form form-control" value="<%= session.user.company %>" name="company" placeholder="Company Name">
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" class="form form-control" value="<%= session.user.street %>" name="street" placeholder="Street">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input type="text" class="form form-control" value="<%= session.user.city %>" name="city" placeholder="City">
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" class="form form-control" value="<%= session.user.postalCode %>" name="postalCode" placeholder="Postal code">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input type="text" class="form form-control" value="<%= session.user.country %>" name="country" placeholder="Country">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-lg-3 col-lg-6">
+                            <button class="btn quiz-action-btn no-bg-btn">SAVE ADDRESS</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <h5 class="premium-setup-title">Your Plan</h5>
+            <div class="payment-mode-setup">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="payment-plan" data-period="monthly">
+                            <div class="period-plan <%= (session.user.stripe.plan == 'Monthly')?'sel':'' %>">
+                                <div></div>
+                            </div>
+                            <div class="plan-details">
+                                <h4>Monthly</h4>
+                                <p>
+                                    <span>$</span>
+                                    <span>3</span>
+                                    <span> / monthly</span>
+                                </p>
+                            </div>
+                            <div class="plan-discount-msg"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="payment-plan" data-period="annually">
+                            <div class="period-plan <%= (session.user.stripe.plan == 'Annually')?'sel':'' %>">
+                                <div></div>
+                            </div>
+                            <div class="plan-details">
+                                <h4>Annually</h4>
+                                <p>
+                                    <span>$</span>
+                                    <span>2</span>
+                                    <span> / monthly</span>
+                                </p>
+                            </div>
+                            <div class="plan-discount-msg">
+                                33% off
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <% if(plan_error && plan_error.length>0){ %>
+                            <div class="alert alert-danger" style="margin-top: 20px">
+                                <%- plan_error %>
+                            </div>
+                        <% } else if(plan_success && plan_success.length>0){ %>
+                            <div class="alert quiz-alert-success">
+                                <%- plan_success %>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="row" id="plan-detail-form">
+                    <div class="offset-lg-3 col-lg-6">
+                        <form action="/user/update/plan" method="post">
+                            <input type="radio" hidden name="plan"
+                                   id="period_monthly"
+                                    <%= (session.user.stripe.plan=='Monthly')?'checked':'' %>
+                                   value="Monthly">
+                            <input type="radio" hidden name="plan"
+                                   id="period_annually"
+                                    <%= (session.user.stripe.plan=='Annually')?'checked':'' %>
+                                   value="Annually">
+                            <% if(session.user.stripe.plan=='Monthly' || session.user.stripe.plan=='Annually') {  %>
+                                <button class="btn quiz-action-btn no-bg-btn">CHANGE PLAN</button>
+                            <% } else {  %>
+                                <button class="btn quiz-action-btn no-bg-btn">GET PREMIUM FEATURES</button>
+                            <% }  %>
+                        </form>
+                        <% if(session.user.stripe.plan=='Monthly' || session.user.stripe.plan=='Annually') {  %>
+                            <a id="cancel-subscription-link" onclick="onCancelSubscriptionConfirm()">Cancel subscription</a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<%- include ../../layouts/footer.ejs %>
+<script src="/assets/vendor/sweetalert/sweetalert.min.js"></script>
+
+<script>
+    var aaaa = '<%- JSON.stringify(session.user);%>';
+    console.log(aaaa);
+    $(document).ready(function () {
+        var curHashtag = location.hash;
+        var elem ;
+        switch (curHashtag) {
+            case '#account':
+                elem = document.getElementById("account-detail-form");
+                elem.scrollIntoView();
+                break;
+            case '#address':
+                elem = document.getElementById("address-detail-form");
+                elem.scrollIntoView();
+                break;
+            case '#plan':
+                elem = document.getElementById("plan-detail-form");
+                elem.scrollIntoView();
+                break;
+        }
+
+    })
+
+    $('.payment-plan').click(function () {
+        $('.period-plan').removeClass('sel');
+        $(this).find('.period-plan').addClass('sel');
+
+        var period = $(this).data('period');
+        $('#period_' + period).prop('checked', true);
+
+    });
+</script>
+
+</body>
+</html>

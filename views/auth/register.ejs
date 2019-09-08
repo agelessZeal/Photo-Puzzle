@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ../layouts/header.ejs %>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<body>
+
+<%- include ../layouts/menubar.ejs %>
+
+<!-- Page Content -->
+<div class="container" id="main-content">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <br>
+            <p>Get all the</p>
+            <h1><i>PREMIUM FEATURES</i></h1>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-lg-2 col-lg-8">
+            <form id="accountForm" method="post" action="/auth/register">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <% if(error && error.length > 0){ %>
+                            <div class="alert alert-danger">
+                                <%= error %>
+                            </div>
+                        <% } else if(success && success.length > 0 ){ %>
+                            <div class="alert alert-success">
+                                <%= success %>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                <h5 class="premium-setup-title">1. Select pricing</h5>
+                <div class="payment-mode-setup">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="payment-plan" data-period="monthly">
+                                <div class="period-plan <%= (cur_plan == 'Monthly')?'sel':'' %>">
+                                    <div></div>
+                                </div>
+                                <div class="plan-details">
+                                    <h4>Monthly</h4>
+                                    <p>
+                                        <span>$</span>
+                                        <span>3</span>
+                                        <span> / monthly</span>
+                                    </p>
+                                </div>
+                                <div class="plan-discount-msg"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="payment-plan" data-period="annually">
+                                <div class="period-plan <%= (cur_plan == 'Annually')?'sel':'' %>">
+                                    <div></div>
+                                </div>
+                                <div class="plan-details">
+                                    <h4>Annually</h4>
+                                    <p>
+                                        <span>$</span>
+                                        <span>2</span>
+                                        <span> / monthly</span>
+                                    </p>
+                                </div>
+                                <div class="plan-discount-msg">
+                                    33% off
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="premium-setup-title">2. Personal information</h5>
+                <div class="personal-info-setup">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input type="email" class="form form-control" name="email" placeholder="E-Mail Address"
+                                   required>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="password" class="form form-control" name="password" placeholder="Password"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="premium-setup-title">3. Payment</h5>
+                <div class="payment-info-setup">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="card-number">Credit Card Number</label>
+                                <span id="card-number" class="form-control">
+                              <!-- Stripe Card Element -->
+                            </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="name">Name on Card</label>
+                                <input type="text" class="form-control" id="name" placeholder="Name on card">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="card-exp">Expiry date</label>
+                                <span id="card-exp" class="form-control">
+                              <!-- Stripe Card Expiry Element -->
+                            </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="card-cvc">CVV</label>
+                                <span id="card-cvc" class="form-control">
+                              <!-- Stripe CVC Element -->
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="confirm-order">
+                        <h5>Your order</h5>
+                        <div class="confirm-order-fee">
+                            <span>Monthly fee</span>
+                            <div></div>
+                            <span>$3</span>
+                        </div>
+                        <input type="radio" hidden name="plan"
+                               id="period_monthly"
+                                <%= (cur_plan == 'Monthly')?'checked':'' %> value="Monthly">
+                        <input type="radio"
+                               hidden name="plan"
+                               id="period_annually"
+                                <%= (cur_plan == 'Annually')?'checked':'' %> value="Annually">
+                        <input type="hidden" name="stripeToken" value="">
+                        <button id="payment-submit" class="btn quiz-action-btn">Get Premium Features</button>
+                        <p>By clicking "Get Premium Features" you agree to our <a href="#">Privacy & Terms</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+
+<%- include ../layouts/footer.ejs %>
+
+<script>
+
+    $('.payment-plan').click(function () {
+        $('.period-plan').removeClass('sel');
+        $(this).find('.period-plan').addClass('sel');
+
+        var period = $(this).data('period');
+        $('#period_' + period).prop('checked', true);
+
+    });
+
+    // Create a Stripe client
+    var stripe = Stripe('<%= pub_key %> ');
+
+    // Create an instance of Elements
+    var elements = stripe.elements();
+
+    // Try to match bootstrap 4 styling
+    var style = {
+        base: {
+            'lineHeight': '1.35',
+            'fontSize': '1.11rem',
+            'color': '#495057',
+            'fontFamily': 'apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif'
+        }
+    };
+
+    // Card number
+    var card = elements.create('cardNumber', {
+        'placeholder': 'XXXX XXXX XXXX XXXX',
+        'style': style
+    });
+    card.mount('#card-number');
+    // CVC
+    var cvc = elements.create('cardCvc', {
+        'placeholder': 'XXX',
+        'style': style
+    });
+    cvc.mount('#card-cvc');
+
+    // Card number
+    var exp = elements.create('cardExpiry', {
+        'placeholder': 'MM / YY',
+        'style': style
+    });
+    exp.mount('#card-exp');
+
+    // Submit
+    $('#payment-submit').click(function (e) {
+        e.preventDefault();
+        var cardData = {
+            'name': $('#name').val()
+        };
+        stripe.createToken(card, cardData).then(function (result) {
+            console.log(result);
+            if (result.error && result.error.message) {
+                alert(result.error.message);
+            } else {
+                console.log(result.token.id);
+                $('input[name="stripeToken"]').val(result.token.id);
+                $('#accountForm').submit();
+            }
+        });
+    });
+
+
+
+</script>
+
+</body>
+</html>

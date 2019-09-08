@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="29.014" height="29.014" viewBox="0 0 29.014 29.014">
+  <g id="Small" transform="translate(0 0)">
+    <g id="Rechteck_6" data-name="Rechteck 6" fill="none" stroke="#262626" stroke-width="1">
+      <rect width="29.014" height="29.014" rx="3" stroke="none"/>
+      <rect x="0.5" y="0.5" width="28.014" height="28.014" rx="2.5" fill="none"/>
+    </g>
+    <line id="Linie_9" data-name="Linie 9" x2="28.434" transform="translate(0.29 14.797)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_10" data-name="Linie 10" y2="28.434" transform="translate(14.797 0.29)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_8" data-name="Linie 8" y2="22.631" transform="translate(14.797 6.093)" fill="none" stroke="#262626" stroke-width="1"/>
+  </g>
+</svg>

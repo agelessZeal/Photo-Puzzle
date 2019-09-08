@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="29.138" height="29.138" viewBox="0 0 29.138 29.138">
+  <g id="Big" transform="translate(0 0)">
+    <g id="Rechteck_8" data-name="Rechteck 8" fill="#fff" stroke="#262626" stroke-width="1">
+      <rect width="29.138" height="29.138" rx="3" stroke="none"/>
+      <rect x="0.5" y="0.5" width="28.138" height="28.138" rx="2.5" fill="none"/>
+    </g>
+    <line id="Linie_15" data-name="Linie 15" y2="28.555" transform="translate(14.86 0.291)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_16" data-name="Linie 16" y2="28.555" transform="translate(7.285 0.291)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_17" data-name="Linie 17" y2="28.555" transform="translate(21.854 0.291)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_18" data-name="Linie 18" y2="28.555" transform="translate(0.291 14.278) rotate(-90)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_19" data-name="Linie 19" y2="28.555" transform="translate(0.291 21.854) rotate(-90)" fill="none" stroke="#262626" stroke-width="1"/>
+    <line id="Linie_20" data-name="Linie 20" y2="28.555" transform="translate(0.291 7.285) rotate(-90)" fill="none" stroke="#262626" stroke-width="1"/>
+  </g>
+</svg>

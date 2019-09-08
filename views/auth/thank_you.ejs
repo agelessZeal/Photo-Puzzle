@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ../layouts/header.ejs %>
+
+<body>
+
+<%- include ../layouts/menubar.ejs %>
+
+<!-- Page Content -->
+<div class="container" id="main-content">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <br>
+            <p>All done!</p>
+            <h1><i>THANK YOU</i></h1>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-lg-2 col-lg-8">
+            <div class="thank-you-confirm text-center">
+                <p>Thank you for order.</p>
+                <p>You can now use all premium settings</p>
+                <p>Complete your profile by providing additional information in <a href="#">your account.</a></p>
+                <p>Go back to the homepage to generate images using the premium features.</p>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <a href="/" class="btn quiz-action-btn" style="width: 100%">GO TO HOME</a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a href="/account-setting" class="btn quiz-action-btn no-bg-btn you-account-btn">YOUR ACCOUNT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+<%- include ../layouts/footer.ejs %>
+
+</body>
+</html>

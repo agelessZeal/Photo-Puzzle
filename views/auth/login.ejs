@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ../layouts/header.ejs %>
+
+<body>
+
+<%- include ../layouts/menubar.ejs %>
+
+<!-- Page Content -->
+<div class="container" id="main-content">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="offset-lg-2 col-lg-4">
+            <h1 class="text-center">LOGIN</h1>
+            <form id="loginform" action="/auth/login" method="post">
+                <div class="form-group">
+                    <input type="email" placeholder="E-Mail Address" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" name="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn quiz-action-btn">LOGIN</button>
+                </div>
+                <% if(error && error.length > 0){ %>
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+                <% } else if(success && success.length > 0 ){ %>
+                    <div class="alert alert-success">
+                        <%= success %>
+                    </div>
+                <% } %>
+            </form>
+        </div>
+        <div class="col-lg-4">
+            <h1 class="text-center">REGISTER</h1>
+            <form id="signupform">
+                <div class="form-group">
+                    Register in the next step and get all the premium features
+                </div>
+                <div></div>
+                <div class="form-group">
+                    <a href="/auth/register" class="btn quiz-action-btn" >REGISTER ON THE NEXT PAGE</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+
+<%- include ../layouts/footer.ejs %>
+
+
+
+</body>
+</html>
