@@ -16,4 +16,4 @@ email: admin@gmail.com
 
 password: qqqqqqq
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/mingming924/Photo-Puzzle/blob/master/Screenshot_1.png)
